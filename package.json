@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Pitang final project API to schedule vaccination appointments",
   "main": "index.js",
-  "repository": "https://github.com/AnneLivia/Pitang-Backend.git",
+  "repository": "https://github.com/AnneLivia/PitangBackend.git",
   "author": "Anne Livia <annelivia16@gmail.com>",
   "license": "MIT",
   "type": "module",
