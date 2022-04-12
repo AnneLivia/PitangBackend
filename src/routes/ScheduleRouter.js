@@ -1,13 +1,14 @@
 import { Router } from 'express';
+import ScheduleController from '../controllers/ScheduleController.js';
 
 const router = Router();
 
-router.get('/schedules', (req, res) => {
-  res.json('Working...');
-});
-router.get('/schedules/:id', (req, res) => { res.json('Working...'); });
-router.post('/schedules', (req, res) => { res.json('Working...'); });
-router.put('/schedules/:id', (req, res) => { res.json('Working...'); });
-router.delete('/schedules/:id', (req, res) => { res.json('Working...'); });
+const scheduleController = new ScheduleController();
+
+router.get('/schedules', scheduleController.index);
+router.get('/schedules/:id', scheduleController.getOne);
+router.post('/schedules', scheduleController.store);
+router.put('/schedules/:id', scheduleController.update);
+router.delete('/schedules/:id', scheduleController.delete);
 
 export default router;
