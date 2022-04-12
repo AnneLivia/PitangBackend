@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
+import scheduleRouter from './routes/ScheduleRouter.js';
+
 // middlewares
 import errorMiddleware from './middlewares/error.middleware.js';
 
@@ -30,6 +32,9 @@ app.use(cors());
 app.get('/', (req, res) => {
   res.json({ message: 'Schedule vaccination appointment' });
 });
+
+// Route
+app.use('/api', scheduleRouter);
 
 app.use(errorMiddleware);
 
