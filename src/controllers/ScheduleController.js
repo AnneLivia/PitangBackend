@@ -17,23 +17,10 @@ class ScheduleController {
     res.json(schedules);
   }
 
-  async getOne(req, res, next) {
-    const { id } = req.params;
-    try {
-      const schedule = await ScheduleModel.findById(id);
-      if (!schedule) {
-        return next(new NotFound('Este agendamento não foi encontrado'));
-      }
-
-      res.json(schedule);
-    } catch (error) {
-      console.error(error);
-      next(new BadRequest('Erro Inesperado'));
-    }
-  }
-
   async store(req, res, next) {
     const { name, birthDate, dateTimeAppointment } = req.body;
+    // para evitar espaços extras
+    const nameTrim = name.trim();
 
     // como o intervalo de tempo entre um agendamento e outro é de 1 hora
     // os horários para agendamento serão exatos, horas inteiras, sem minutos.
@@ -94,7 +81,7 @@ class ScheduleController {
     // se chegou aqui, então os dados podem ser armazenados no bd
     try {
       const schedule = await ScheduleModel.create({
-        name,
+        name: nameTrim,
         birthDate,
         dateTimeAppointment,
       });
