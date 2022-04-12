@@ -5,10 +5,10 @@ const router = Router();
 
 const scheduleController = new ScheduleController();
 
-router.get('/schedules', scheduleController.index);
-router.get('/schedules/:id', scheduleController.getOne);
-router.post('/schedules', scheduleController.store);
-router.put('/schedules/:id', scheduleController.update);
-router.delete('/schedules/:id', scheduleController.delete);
+router.get('/schedules', scheduleController.index.bind(scheduleController));
+router.get('/schedules/:id', scheduleController.getOne.bind(scheduleController));
+router.post('/schedules', scheduleController.store.bind(scheduleController));
+router.put('/schedules/:id', scheduleController.update.bind(scheduleController));
+router.delete('/schedules/:id', scheduleController.delete.bind(scheduleController));
 
 export default router;
