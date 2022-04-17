@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 // Jest possui suporte experimental para o ECMAScript Modules (ESM).
 // por esse motivo, foi colocado no package.json o NODE_OPTIONS=--experimental-vm-modules
 // e foi instalado o cross-env, para ser possivel setar variáveis ambientes no windows
@@ -154,6 +155,69 @@ describe('POST /api/schedules', () => {
       });
 
       expect(response.statusCode).toBe(400);
+    });
+  });
+});
+
+describe('GET /api/schedules', () => {
+  describe('When fetch all appointments', () => {
+    it('should respond with a 200 status code', async () => {
+      const response = await supertest(app).get('/api/schedules');
+      expect(response.statusCode).toBe(200);
+    });
+  });
+});
+
+describe('PUT /api/schedules/:id', () => {
+  describe('When update the status of a scheduled appointment', () => {
+    it('should respond with a 200 status code and return the updated data', async () => {
+      const objectToUpdate = (await supertest(app).get('/api/schedules/')).body[0];
+      const response = await supertest(app).put(`/api/schedules/${objectToUpdate._id}`).send({
+        statusAppointment: 'ATENDIDO',
+      });
+      expect(response.statusCode).toBe(200);
+      expect(response.body.statusAppointment).toBe('ATENDIDO');
+    });
+  });
+
+  describe('When update the conclusion text of a scheduled appointment', () => {
+    it('should respond with a 200 status code and return the updated data', async () => {
+      const objectToUpdate = (await supertest(app).get('/api/schedules/')).body[0];
+      const response = await supertest(app).put(`/api/schedules/${objectToUpdate._id}`).send({
+        resultText: 'Teste de atualização',
+      });
+      expect(response.statusCode).toBe(200);
+      expect(response.body.resultText).toBe('Teste de atualização');
+    });
+  });
+
+  describe('When passing a wrong status to the appointment rather than ATENDIDO, AGENDADO or NÃO ATENDIDO', () => {
+    it('should respond with a 400 status code', async () => {
+      const objectToUpdate = (await supertest(app).get('/api/schedules/')).body[0];
+      const response = await supertest(app).put(`/api/schedules/${objectToUpdate._id}`).send({
+        statusAppointment: 'WRONG STATUS',
+      });
+      expect(response.statusCode).toBe(400);
+    });
+  });
+});
+
+describe('DELETE /api/schedules/:id', () => {
+  describe('When delete an existing appointment', () => {
+    it('should respond with a 200 status code', async () => {
+      const objectToDelete = (await supertest(app).get('/api/schedules/')).body[0];
+      const response = await supertest(app).delete(`/api/schedules/${objectToDelete._id}`);
+      expect(response.statusCode).toBe(200);
+    });
+  });
+  describe('When try to delete a nonexistent appointment', () => {
+    it('should respond with a 404 status code', async () => {
+      const objectToDelete = (await supertest(app).get('/api/schedules/')).body[0];
+      // Deletando um agendamento
+      await supertest(app).delete(`/api/schedules/${objectToDelete._id}`);
+      // tentando deletar o agendamento que não existe mais
+      const response = await supertest(app).delete(`/api/schedules/${objectToDelete._id}`);
+      expect(response.statusCode).toBe(404);
     });
   });
 });
