@@ -1,18 +1,18 @@
 ## Pitang Trainee Program
 
-Pitang's final project that aims to create a React and Node.js application to schedule vaccine appointments (Covid-19) and to visualize all of the already scheduled appointments grouped by date and time.
+Pitang's final project that aims to create a React and Node.js application to schedule vaccine appointments (Covid-19) and to visualize all the already scheduled appointments grouped by date and time.
 
 ### How to run this project:
-- Download the files
-- Run **yarn** in the terminal to install all dependencies listed within **package.json**
-- Start your **MongoDB Database Server**
-- Create a **.env** file in the project's root directory and insert the following configurations:
+1. Download the files or clone this repository
+2. Run **yarn install** or simply **yarn** in the terminal to install all dependencies listed within **package.json**
+3. Start your **MongoDB Database Server**
+4. Create a **.env** file in the project's root directory and insert the following configurations:
 
-  - **DATABASE_URL** = mongodb://localhost:27017/schedule_vaccine
-  - **DATABASE_URL_TEST** = mongodb://localhost:27017/schedule_vaccine_test
-  - **PORT** = 4000
+   - **DATABASE_URL** = mongodb://localhost:27017/schedule_vaccine
+   - **DATABASE_URL_TEST** = mongodb://localhost:27017/schedule_vaccine_test
+   - **PORT** = 4000
   
-- Run **yarn start** to execute the API
+5. Run **yarn start** to execute the API
 
 ### Some Dependencies (Backend)
 
@@ -62,3 +62,35 @@ and what was the conclusion of the appointment.
 3. Axios as http client.
 4. Use Formik to validate the data in the view.
 5. IDE is your choice.
+
+## API endpoints:
+
+<table align="center">
+<thead>
+  <tr>
+    <th><b>HTTP request</b></th>
+    <th><b>Description</b></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><b>POST</b> /api/schedules</td>
+    <td>Schedule a new appointment</td>
+  </tr>
+  <tr>
+    <td><b>PUT</b> /api/schedules/:id</td>
+    <td>Update an appointment (Used mainly to update conclusion text and status of appointment)</td>
+  </tr>
+  <tr>
+    <td><b>DELETE</b> /api/schedules/:id</td>
+    <td>Delete/unschedule an appointment</td>
+  </tr>
+  <tr>
+    <td><b>GET </b> /api/schedules</td>
+    <td>Returns all scheduled appointments</td>
+  </tr>
+</tbody>
+</table>
+
+<br/>
+<p align="center">© Developed by Anne Livia</p>
